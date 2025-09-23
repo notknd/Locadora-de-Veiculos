@@ -20,7 +20,7 @@ O principal objetivo do projeto é demonstrar a aplicação prática dos princí
 
 -----
 
-## 🚀 Instalação e Configuração
+## Instalação e Configuração
 
 1.  Clone este repositório ou baixe os arquivos para o seu computador.
 
