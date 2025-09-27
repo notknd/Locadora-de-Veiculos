@@ -1,6 +1,6 @@
 <?php
 
-require_once '/vendor/autoload.php';
+require_once 'C:\Users\Aluno\Desktop\Kendy H\Projeto P.O.O\Projeto P.O.O\vendor\autoload.php';
 
 use App\Model\Carro;
 use App\Model\Moto;
@@ -22,14 +22,16 @@ while (true) {
     echo "3. Cadastrar Cliente\n";
     echo "4. Listar Veículos\n";
     echo "5. Listar Clientes\n";
-    echo "6. Sair\n";
+    echo "6. Registrar Aluguel\n";
+    echo "7. Listar Aluguéis\n";
+    echo "8. Sair\n";
     echo "Opção: ";
 
     $opcao = (int) readline();
 
     switch ($opcao) {
         case 1:
-            echo "--- Cadastro de Carro ---\n";
+            echo "___ Cadastro de Carro ___\n";
             echo "Placa: ";
             $placa = readline();
             echo "Marca: ";
@@ -46,7 +48,7 @@ while (true) {
             break;
 
         case 2:
-            echo "--- Cadastro de Moto ---\n";
+            echo "___ Cadastro de Moto ___\n";
             echo "Placa: ";
             $placa = readline();
             echo "Marca: ";
@@ -63,7 +65,7 @@ while (true) {
             break;
 
         case 3:
-            echo "--- Cadastro de Cliente ---\n";
+            echo "___ Cadastro de Cliente ___\n";
             echo "CPF: ";
             $cpf = readline();
             echo "Nome: ";
@@ -74,28 +76,59 @@ while (true) {
             break;
 
         case 4:
-            echo "--- Lista de Veículos ---\n";
-            if (empty($veiculos)) {
-                echo "Nenhum veículo cadastrado.\n";
-            } else {
-                foreach ($veiculos as $veiculo) {
-                    $veiculo->exibirDetalhes();
-                }
+            echo "___ Lista de Veículos ___\n";
+            foreach ($veiculos as $veiculo) {
+                $veiculo->exibirDetalhes();
             }
             break;
-            
+
         case 5:
-            echo "--- Lista de Clientes ---\n";
-            if (empty($clientes)) {
-                echo "Nenhum cliente cadastrado.\n";
-            } else {
-                foreach ($clientes as $cliente) {
-                    $cliente->exibirDetalhes();
-                }
+            echo "___ Lista de Clientes ___\n";
+            foreach ($clientes as $cliente) {
+                $cliente->exibirDetalhes();
             }
             break;
 
         case 6:
+            echo "___ Registro de Novo Aluguel ___\n";
+
+            echo "Escolha um veículo da lista abaixo:\n";
+            foreach ($veiculos as $indice => $veiculo) {
+                echo ($indice + 1) . ". ";
+                $veiculo->exibirDetalhes();
+            }
+            echo "Digite o NÚMERO do veículo: ";
+            $indiceVeiculo = (int) readline() - 1;
+            $veiculoEscolhido = $veiculos[$indiceVeiculo];
+
+
+            echo "\nEscolha um cliente da lista abaixo:\n";
+            foreach ($clientes as $indice => $cliente) {
+                echo ($indice + 1) . ". ";
+                $cliente->exibirDetalhes();
+            }
+            echo "Digite o NÚMERO do cliente: ";
+            $indiceCliente = (int) readline() - 1;
+            $clienteEscolhido = $clientes[$indiceCliente];
+
+            echo "Digite a data de início do aluguel: ";
+            $dataInicio = readline();
+
+            $novoAluguel = new Aluguel($clienteEscolhido, $veiculoEscolhido, $dataInicio);
+            $alugueis[] = $novoAluguel;
+
+            echo "\nAluguel registrado com sucesso!\n";
+            $novoAluguel->exibirDetalhes();
+            break;
+
+        case 7:
+            echo "___ Lista de Aluguéis ___\n";
+            foreach ($alugueis as $aluguel) {
+                $aluguel->exibirDetalhes();
+            }
+            break;
+
+        case 8:
             echo "Saindo do sistema. Até logo!\n";
             exit;
 
