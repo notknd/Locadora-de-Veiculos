@@ -1,15 +1,12 @@
-#  Sistema de Locadora de Veículos (Projeto POO)
-
-Este é um projeto acadêmico desenvolvido para a disciplina de Programação Orientada a Objetos. A aplicação simula um sistema de gerenciamento para uma locadora de veículos e funciona inteiramente via CLI (Interface de Linha de Comando).
-
-O principal objetivo do projeto é demonstrar a aplicação prática dos princípios de **Abstração** e **Herança** em PHP.
 
 -----
 
-##  Conceitos de POO Aplicados
+##  Alunos
 
-  * **Abstração:** A classe `Veiculo` é uma classe abstrata que define um "contrato" com os atributos e métodos essenciais que todo veículo deve ter, mas não pode ser instanciada diretamente.
-  * **Herança:** As classes `Carro` e `Moto` herdam da classe `Veiculo`, reutilizando seu código e adicionando suas próprias características e implementações específicas.
+ Kendy Hashimoto RA: 2033463
+ Pedro Henrique Nascimento RA: 2080759
+ João Pedro de Araujo Aguiar RA: 2031820
+ Raissa Kaori Kawakami RA: 2040357
 
 -----
 
@@ -19,21 +16,6 @@ O principal objetivo do projeto é demonstrar a aplicação prática dos princí
   * [Composer](https://getcomposer.org/) para gerenciamento do autoload.
 
 -----
-
-## Instalação e Configuração
-
-1.  Clone este repositório ou baixe os arquivos para o seu computador.
-
-2.  Abra o terminal na pasta raiz do projeto.
-
-3.  Instale as dependências do Composer (que neste caso, irá apenas gerar o autoloader):
-
-    ```bash
-    composer install
-    ```
-
------
-
 ## Como Executar
 
 Após a instalação, execute o seguinte comando na raiz do projeto para iniciar a aplicação:
@@ -41,5 +23,17 @@ Após a instalação, execute o seguinte comando na raiz do projeto para iniciar
 ```bash
 php index.php
 ```
+## Classes
+* Veiculo: Classe abstrata que serve como base para o cadastro de todos os veículos. Possui 4 atributos, placa, marca, modelo, ano, um método de construção, e um método para exibir os detalhes da classe. 
+* Carro: Classe herdeira da "Veiculo", que possui um atributo próprio "numeroPortas", e o método "exibirDetalhes".
+* Moto: Classe herdeira da "Veiculo", que possui um atributo próprio "cilindradas", e o método "exibirDetalhes".
+* Cliente: Possui 2 atributos, "cpf", e "nome", e o método "exibirDetalhes".
+* Aluguel: Possui 3 atributos "cliente", "veiculo", e "dataInicio", e o método "exibirDetalhes".
 
-O menu interativo será exibido no terminal, permitindo o cadastro de veículos e clientes.
+  ## Funcionamento
+
+  O programa inicial em um menu, com escolhas através de número inseridos pelo usuário, no qual ele pode escolher entre: Cadastrar carro, cadastrar moto, cadastrar cliente, listar veiculos, listar clientes, registrar aluguel, listar alugueis, e sair
+  A escolha é recebida por um "readline" e aplicada em um "switch case", onde cada número de 1 a 8, representa respectivamente as opções mencionadas.
+  As opções de cadastro, recebem por um "readline" as informações do objeto que o usuário está cadastrando, seja um veículo ou um cliente, e cria uma nova classe utilizando o "new (classe)".
+  As opções de listagem, mostram os objetos cadastrados pelo usuário, os quais que foram armazenados em uma matriz, "veiculos", "clientes", "alugueis", e utiliza um loop for, para percorrer pela matriz desejada
+  A opção de registro de aluguel, exibe para o usuário os veículos cadastrados, e pede para que ele selecione algum, inserindo o número referente à este veículo. Em seguida exibe os clientes cadastrados, e pede para que ele selecione algum, também, inserindo o número referente ao mesmo. 
