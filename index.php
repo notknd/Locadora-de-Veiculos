@@ -1,6 +1,6 @@
 <?php
 
-require_once 'C:\Users\Aluno\Desktop\Kendy H\Projeto P.O.O\Projeto P.O.O\vendor\autoload.php';
+require_once 'vendor\autoload.php';
 
 use App\Model\Carro;
 use App\Model\Moto;
@@ -10,6 +10,7 @@ use App\Model\Aluguel;
 $veiculos = [];
 $clientes = [];
 $alugueis = [];
+$metodos_pag = ["cartão", "boleto", "pix"];
 
 echo "________________________________________\n";
 echo "  Bem-vindo à Locadora de Veículos POO  \n";
@@ -111,6 +112,15 @@ while (true) {
             $indiceCliente = (int) readline() - 1;
             $clienteEscolhido = $clientes[$indiceCliente];
 
+            echo "Escolha o método de pagamento:\n";
+            foreach ($metodos_pag as $indice => $metodo) {
+                echo ($indice + 1) . ". ";
+            }
+            $indicePag = (int) readline() - 1;
+            switch($pag){
+                case 1:
+            }
+
             echo "Digite a data de início do aluguel: ";
             $dataInicio = readline();
 
@@ -120,6 +130,8 @@ while (true) {
             echo "\nAluguel registrado com sucesso!\n";
             $novoAluguel->exibirDetalhes();
             break;
+
+
 
         case 7:
             echo "___ Lista de Aluguéis ___\n";
