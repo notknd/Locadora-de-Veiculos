@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 
 namespace App\Model;
@@ -14,24 +13,25 @@ class Cliente
         $this->nome = $nome;
     }
 
-    public function exibirDetalhes(): void
+    public function getCpf(): string
     {
-        echo "Cliente: {$this->nome} | CPF: {$this->cpf}\n";
+        return $this->cpf;
     }
-}
-=======
-<?php
 
-namespace App\Model;
-
-class Cliente
-{
-    private string $cpf;
-    private string $nome;
-
-    public function __construct(string $cpf, string $nome)
+    // Talvez você não queira permitir mudar o CPF, então o Setter é opcional, 
+    // mas para encapsulamento completo, aqui está:
+    public function setCpf(string $cpf): void
     {
         $this->cpf = $cpf;
+    }
+
+    public function getNome(): string
+    {
+        return $this->nome;
+    }
+
+    public function setNome(string $nome): void
+    {
         $this->nome = $nome;
     }
 
@@ -40,4 +40,3 @@ class Cliente
         echo "Cliente: {$this->nome} | CPF: {$this->cpf}\n";
     }
 }
->>>>>>> f9c6238c5a29d3a6f7bbf7b25c935dfee5b408b7
