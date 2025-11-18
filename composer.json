@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "name": "kendy/poo",
     "description": "Locadora de Carros",
@@ -9,4 +10,17 @@
     },
     
     "require": {}
+=======
+{
+    "name": "kendy/poo",
+    "description": "Locadora de Carros",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    
+    "require": {}
+>>>>>>> f9c6238c5a29d3a6f7bbf7b25c935dfee5b408b7
 }
