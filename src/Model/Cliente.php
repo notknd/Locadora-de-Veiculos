@@ -1,25 +1,29 @@
 <?php
 
 namespace App\Model;
+use App\Model\ContaBancariaCliente;
 
 class Cliente
 {
     private string $cpf;
     private string $nome;
+    private ContaBancariaCliente $numConta;
 
-    public function __construct(string $cpf, string $nome)
+    public function __construct(string $cpf, string $nome, ContaBancariaCliente $numConta)
     {
         $this->cpf = $cpf;
         $this->nome = $nome;
+        $this->conta = $numConta;
+    }
+
+    public function getConta(): ContaBancariaCliente{
+        return $this->numConta;
     }
 
     public function getCpf(): string
     {
         return $this->cpf;
     }
-
-    // Talvez você não queira permitir mudar o CPF, então o Setter é opcional, 
-    // mas para encapsulamento completo, aqui está:
     public function setCpf(string $cpf): void
     {
         $this->cpf = $cpf;

@@ -1,9 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Model;
+use App\Model\ContaBancariaCliente;
 
 class PagamentoBoleto extends Pagamento
 {
+    private ContaBancariaCliente $contaCliente;
     public function __construct(float $valor)
     {
         parent::__construct($valor);
@@ -11,10 +13,17 @@ class PagamentoBoleto extends Pagamento
 
     public function processar_pagamento(): bool
     {
-        if ($this-getValor() > 0){
+        $valor = $this->getValor();
+
+        if ($valor > 0){
             echo("Boleto registrado com sucesso.");
+            $this->contaCliente->exibirDetalhes();
             return true;
         }
-        return false;
+        else {
+            echo("Pagamento Boleto REJEITADO");
+            $this->contaCliente->exibirDetalhes();
+            return false;
+        }
     }
 }

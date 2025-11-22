@@ -1,20 +1,32 @@
 <?php
 
-namespace App;
+namespace App\Model;
+
+use App\Model\ContaBancariaCliente;
 
 class PagamentoPix extends Pagamento
 {
-    public function __construct(float $valor)
+    private ContaBancariaCliente $contaCliente;
+    public function __construct(float $valor, ContaBancariaCliente $contaCliente)
     {
         parent::__construct($valor);
+        $this->contaCliente = $contaCliente;
     }
 
     public function processar_pagamento(): bool
     {
-        if ($this-getValor() > 0){
-            echo("Pix realizado com sucesso.");
+        $valor = $this->getValor();
+        $saldoCliiente = $this->contaCliente->getSaldo();
+
+        if ($this->contaCliente->debitar($valor)) {
+            echo("Pix efetuado com sucesso. Débito de R$ " . $valor . " realizado na conta do cliente.\n");
+            $this->contaCliente->exibirDetalhes(); 
             return true;
         }
-        return false;
+        else {
+            echo("Pagamento REJEITADO (valor inválido)");
+            $this->contaCliente->exibirDetalhes();
+            return false;
+        }
     }
 }
