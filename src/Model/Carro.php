@@ -6,9 +6,9 @@ class Carro extends Veiculo
 {
     private int $numeroPortas;
 
-    public function __construct(string $placa, string $marca, string $modelo, int $ano, int $numeroPortas)
+    public function __construct(string $placa, string $marca, string $modelo, int $ano, int $numeroPortas, $valor)
     {
-        parent::__construct($placa, $marca, $modelo, $ano);
+        parent::__construct($placa, $marca, $modelo, $ano, $valor);
         $this->numeroPortas = $numeroPortas;
     }
 

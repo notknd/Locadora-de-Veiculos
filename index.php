@@ -116,7 +116,6 @@ while (true) {
             $indiceVeiculo = (int) readline() - 1;
             $veiculoEscolhido = $veiculos[$indiceVeiculo];
 
-
             echo "\nEscolha um cliente da lista abaixo:\n";
             foreach ($clientes as $indice => $cliente) {
                 echo ($indice + 1) . ". ";
@@ -134,6 +133,65 @@ while (true) {
 
             echo "\nAluguel registrado com sucesso!\n";
             $novoAluguel->exibirDetalhes();
+
+
+            echo "Digite o NÚMERO do método de pagamento: ";
+            echo "\n1. Cartão\n2. Boleto\n3.Pix\n";
+            $indicePag = (int) readline() - 1;
+            $metodoPagamento = $indicePag + 1; // 1: cartão, 2: boleto, 3: pix
+
+
+            if ($metodoPagamento === 1) {
+                $pagamento = new PagamentoCartao($valorPreReserva, $clienteEscolhido->getConta());
+                $sucessoPagamento = $pagamento->processar_pagamento();
+
+            } elseif ($metodoPagamento === 2) {
+                $pagamento = new PagamentoBoleto($valorPreReserva, $clienteEscolhido->getConta());
+                $sucessoPagamento = $pagamento->processar_pagamento();
+
+            } elseif ($metodoPagamento === 3) {
+                $pagamento = new PagamentoPix($valorPreReserva, $clienteEscolhido->getConta());
+                $sucessoPagamento = $pagamento->processar_pagamento();
+
+            } else {
+                echo "Método de pagamento inválido.\n";
+            break;
+            }
+            
+            echo "Digite a data limite de pagamento (Prazo): ";
+            $dataLimite = readline();
+
+            $novaPreReserva = new PreReserva($clienteEscolhido, $veiculoEscolhido, $dataLimite, $metodoPagamento);
+
+            if ($sucessoPagamento) {
+                echo "\n-------------------------------------------------\n";
+                echo "Digite a data SIMULADA em que o pagamento foi efetuado: ";
+                $dataPagamentoSimulada = readline();
+                echo "-------------------------------------------------\n";
+                $novaPreReserva->marcarComoPaga($dataPagamentoSimulada);
+                if ($novaPreReserva->estaDentroDoPrazo()) {
+
+                    echo "\nPagamento efetuado dentro do prazo ({$dataPagamentoSimulada}).\n";
+
+                    echo "Digite o PRAZO de aluguel: ";
+                    $prazoAluguel = readline(); 
+                    $aluguelFinal = new Aluguel($clienteEscolhido, $veiculoEscolhido, $prazoAluguel);
+                    $alugueis[] = $aluguelFinal; 
+
+                    $aluguelFinal->exibirDetalhes();
+                } else {
+                    echo "\nPagamento efetuado ({$dataPagamentoSimulada}), mas FORA DO PRAZO. Pré-Reserva CANCELADA.\n";
+                    $novaPreReserva->cancelaPreReserva(); 
+                }
+            } else {
+                echo "\nFalha no pagamento. Pré-reserva não efetivada.\n";
+            }
+
+            $listaPreReserva[] = $novaPreReserva;
+            $novaPreReserva->exibirDetalhes();
+
+
+
             break;
 
         case 7:
@@ -183,7 +241,7 @@ while (true) {
             } elseif ($metodoPagamento === 3) {
                 $pagamento = new PagamentoPix($valorPreReserva, $clienteEscolhido->getConta());
                 $sucessoPagamento = $pagamento->processar_pagamento();
-                
+
             } else {
                 echo "Método de pagamento inválido.\n";
             break;
