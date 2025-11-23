@@ -6,9 +6,10 @@ use App\Model\ContaBancariaCliente;
 class PagamentoBoleto extends Pagamento
 {
     private ContaBancariaCliente $contaCliente;
-    public function __construct(float $valor)
+    public function __construct(float $valor, ContaBancariaCliente $contaCliente)
     {
         parent::__construct($valor);
+        $this->contaCliente = $contaCliente;
     }
 
     public function processar_pagamento(): bool

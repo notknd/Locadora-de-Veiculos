@@ -13,7 +13,7 @@ class Cliente
     {
         $this->cpf = $cpf;
         $this->nome = $nome;
-        $this->conta = $numConta;
+        $this->numConta = $numConta;
     }
 
     public function getConta(): ContaBancariaCliente{
@@ -41,6 +41,6 @@ class Cliente
 
     public function exibirDetalhes(): void
     {
-        echo "Cliente: {$this->getNome()} | CPF: {$this->getCpf()}\n";
+        echo "Cliente: {$this->getNome()} | CPF: {$this->getCpf()} | Conta: {$this->getConta()->getNumConta()} \n";
     }
 }

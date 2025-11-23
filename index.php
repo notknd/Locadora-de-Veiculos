@@ -29,7 +29,8 @@ while (true) {
     echo "5. Listar Clientes\n";
     echo "6. Registrar Aluguel\n";
     echo "7. Listar Aluguéis\n";
-    echo "8. Sair\n";
+    echo "8. Pré Registrar\n";
+    echo "9. Sair\n";
     echo "Opção: ";
 
     $opcao = (int) readline();
@@ -47,8 +48,10 @@ while (true) {
             $ano = (int) readline();
             echo "Número de Portas: ";
             $portas = (int) readline();
+            echo "Valor: ";
+            $valor = (float) readline();
 
-            $veiculos[] = new Carro($placa, $marca, $modelo, $ano, $portas);
+            $veiculos[] = new Carro($placa, $marca, $modelo, $ano, $portas, $valor);
             echo "Carro cadastrado com sucesso!\n";
             break;
 
@@ -64,8 +67,10 @@ while (true) {
             $ano = (int) readline();
             echo "Cilindradas: ";
             $cilindradas = (int) readline();
+            echo "Valor: ";
+            $valor = (float) readline();
 
-            $veiculos[] = new Moto($placa, $marca, $modelo, $ano, $cilindradas);
+            $veiculos[] = new Moto($placa, $marca, $modelo, $ano, $cilindradas, $valor);
             echo "Moto cadastrada com sucesso!\n";
             break;
 
@@ -80,7 +85,7 @@ while (true) {
             echo "Saldo Inicial: ";
             $saldoInicial = (float) readline();
 
-            $novaConta = new ContaBancariaCliente($contaNum, $saldoInicial);
+            $novaConta = new ContaBancariaCliente($numConta, $saldoInicial);
             $clientes[] = new Cliente($cpf, $nome, $novaConta);
             echo "Cliente cadastrado com sucesso!\n";
             break;
@@ -141,16 +146,17 @@ while (true) {
         case 8:
             $sucessoPagamento = false;
 
-            echo "___ Prré Cadastro ___\n";
+            echo "___ Pré Cadastro ___\n";
             echo "Escolha um veículo da lista abaixo:\n";
             foreach ($veiculos as $indice => $veiculo) {
                 echo ($indice + 1) . ". ";
                 $veiculo->exibirDetalhes();
             }
+
             echo "Digite o NÚMERO do veículo: ";
             $indiceVeiculo = (int) readline() - 1;
             $veiculoEscolhido = $veiculos[$indiceVeiculo];
-
+            $valorPreReserva = $veiculoEscolhido->getValor();
             echo "\nEscolha um cliente da lista abaixo:\n";
             foreach ($clientes as $indice => $cliente) {
                 echo ($indice + 1) . ". ";
@@ -161,6 +167,7 @@ while (true) {
             $clienteEscolhido = $clientes[$indiceCliente];
             
             echo "Digite o NÚMERO do método de pagamento: ";
+            echo "\n1. Cartão\n2. Boleto\n3.Pix\n";
             $indicePag = (int) readline() - 1;
             $metodoPagamento = $indicePag + 1; // 1: cartão, 2: boleto, 3: pix
 
@@ -168,11 +175,15 @@ while (true) {
             if ($metodoPagamento === 1) {
                 $pagamento = new PagamentoCartao($valorPreReserva, $clienteEscolhido->getConta());
                 $sucessoPagamento = $pagamento->processar_pagamento();
+
             } elseif ($metodoPagamento === 2) {
-                $pagamento = new PagamentoBoleto($valorPreReserva);
-            } elseif ($metodoPagamento === 3) {
-                $pagamento = new PagamentoPix($valorPreReserva, $clienteEscolhido);
+                $pagamento = new PagamentoBoleto($valorPreReserva, $clienteEscolhido->getConta());
                 $sucessoPagamento = $pagamento->processar_pagamento();
+
+            } elseif ($metodoPagamento === 3) {
+                $pagamento = new PagamentoPix($valorPreReserva, $clienteEscolhido->getConta());
+                $sucessoPagamento = $pagamento->processar_pagamento();
+                
             } else {
                 echo "Método de pagamento inválido.\n";
             break;

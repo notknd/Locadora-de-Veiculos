@@ -6,9 +6,9 @@ class Moto extends Veiculo
 {
     private int $cilindradas;
 
-    public function __construct(string $placa, string $marca, string $modelo, int $ano, int $cilindradas)
+    public function __construct(string $placa, string $marca, string $modelo, int $ano, int $cilindradas, float $valor)
     {
-        parent::__construct($placa, $marca, $modelo, $ano);
+        parent::__construct($placa, $marca, $modelo, $ano, $valor);
         $this->cilindradas = $cilindradas;
     }
 

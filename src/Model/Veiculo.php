@@ -10,12 +10,13 @@ abstract class Veiculo
     private string $modelo;
     private int $ano;
 
-    public function __construct(string $placa, string $marca, string $modelo, int $ano)
+    public function __construct(string $placa, string $marca, string $modelo, int $ano, float $valor)
     {
         $this->placa = $placa;
         $this->marca = $marca;
         $this->modelo = $modelo;
         $this->ano = $ano;
+        $this->valor = $valor;
     }
 
     // --- Getters e Setters (Encapsulamento) ---
@@ -55,9 +56,19 @@ abstract class Veiculo
         return $this->ano;
     }
 
-    public function setAno(int $ano): void
+    public function setAno(float $valor): void
     {
-        $this->ano = $ano;
+        $this->valor = $valor;
+    }
+    
+    public function getValor(): int
+    {
+        return $this->valor;
+    }
+
+    public function setValor(float $valor): void
+    {
+        $this->valor = $valor;
     }
 
     abstract public function exibirDetalhes(): void;
