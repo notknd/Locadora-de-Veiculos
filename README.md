@@ -15,17 +15,28 @@ Após a instalação, execute o seguinte comando na raiz do projeto para iniciar
 php index.php
 ```
 ## Classes
-* **Veiculo**: Classe abstrata que serve como base para o cadastro de todos os veículos. Possui 4 atributos, placa, marca, modelo, ano, um método de construção, e um método para exibir os detalhes da classe.
-* **Carro**: Classe herdeira da "Veiculo", que possui um atributo próprio "numeroPortas", e o método "exibirDetalhes".
-* **Moto**: Classe herdeira da "Veiculo", que possui um atributo próprio "cilindradas", e o método "exibirDetalhes".
-* **Cliente**: Possui 2 atributos, "cpf", e "nome", e o método "exibirDetalhes".
-* **Aluguel**: Possui 3 atributos "cliente", "veiculo", e "dataInicio", e o método "exibirDetalhes".
-* **Pagamento**: Classe abstrata que serve como base para o pagamentoCartao, pagamentoPix, pagamento Boleto; Possuindo atributos getValor() e processar pagamento e um método de construção.
-* **PagamentoPix**: Classe extendida de "Pagamento", como sendo uma classe que extende dela, recebe o atributo valor com parent:: e _construct para a passagem do valor a classe Pai, a função "processar_pagamento()", sendo todos os atributos extendidos de "Pagamento", mas tendo um método de débito direto a contaCliente(Sendo uma variável extendida de ContaBancariaCliente).
-* **PagamentoBoleto**: Classe extendida de "Pagamento", como sendo uma das classes que extende dela, recebe o atributo valor com parent:: e _construct para a passagem do valor a classe Pai, a função "processor_pagamento()", sendo todos os atributos extendidos de "Pagamento", tendo também um método de registro de boletos para débito a contaCliente(Sendo uma variável extendida de ContaBancariaCliente).
-* **PagamentoCartão**: Classe extendida de "Pagamento", como sendo uma das classes que extende dela, recebe o atributo valor com parent:: e _construct para a passagem do valor a classe Pai, a função "processor_pagamento()", sendo todos os atributos extendidos de "Pagamento", tendo também um método de debitar o valor(ou pagamento á débito), e um pagamento a Crédito, sendo descontado o valor à próxima fátura do cartão.
-* **PreReserva**: Classe responsável pelo processamento da pré reserva da alocação do veículo, da qual vai trazer para dentro de si atributos das classes-> PagamentoPix, PagamentoBoleto, PagamentoCartão, Cliente e veículo, contendo dentro da classe set de determinado tipo de pagamento e prazo da alocação que vão receber um valor no index e get nas classes cliente e veiculo na qual vai retornar valores das próprias classes. Com método processarPagamento(), vai retornar false, até o pagamento ser realizado durante a efetivação da pré-reserva, que ocorre na page index.html. Por fim, tendo método exibirDetalhes(), na qual vai trazer na tela todas as informações da classe cliente, veiculo, prazo de pagamentoe, método de paghamento e se ocorreu tudo certo no cadastro, se realizou o pagamento, agora, se não ocorreu, não vai ser cadastrado a pré-reserva.
-* **ContaBancariaCliente**: Classe responsável pela entrada e saída do saldo bancário do cliente, tendo dois atributos próprios, sendo $saldo e $conta (número da conta) que vai receber os valores da page index.html. Contendo a function debitar(), responsável pelo cálculo de entrada de valores e atualização do saldo atual. Debitando do saldo atual o valor da préReserva.
+* **Veiculo**: Classe abstrata que serve como base para o cadastro de todos os veículos. Possui 4 atributos, placa, marca, modelo, ano, um método de construção, e métodos para retornar os detalhes da classe.
+  
+* **Carro**: Classe herdeira da "Veiculo", que possui um atributo próprio "numeroPortas", e métodos para definir e retornar os detalhes da classe.
+  
+* **Moto**: Classe herdeira da "Veiculo", que possui um atributo próprio "cilindradas", e métodos para definir e retornar os detalhes da classe.
+  
+* **Cliente**: Possui 3 atributos, "cpf", "nome" e "numConta"(qual origina-se da classe ContaBancariaCliente),e métodos para definir e retornar os detalhes da classe.
+ 
+* **Aluguel**: Possui 3 atributos "cliente", "veiculo", e "dataInicio", e métodos para definir e retornar os detalhes da classe.
+  
+* **Pagamento**: Classe abstrata que serve como base para o PagamentoBoleto, PagamentoCartao, e PagamentoPix; Possuindo atributos valor, método de construção, retorno de valor, e um método abstrato de processo de pagamento.
+  
+* **PagamentoBoleto**: Classe extendida de "Pagamento", recebe o atributo valor com parent::_construct, a função "processor_pagamento()", sendo todos extendidos de "Pagamento". Através da função processar_pagamento() um boleto é registrado e armazenado na contaCliente(Sendo uma variável extendida de ContaBancariaCliente).
+  
+* **PagamentoCartão**: Classe extendida de "Pagamento", recebe o atributo valor com parent:: e _construct, a função "processor_pagamento()", sendo todos extendidos de "Pagamento", tendo também um método de debitar o valor(ou pagamento com débito), e um pagamento com Crédito, sendo descontado o valor à próxima fátura do cartão.
+
+* **PagamentoPix**: Classe extendida de "Pagamento", recebe o atributo valor com parent:: e _construct, a função "processar_pagamento()", sendo todos extendidos de "Pagamento", mas tendo um método de débito direto a contaCliente(Sendo uma variável extendida de ContaBancariaCliente).
+ 
+* **PreReserva**: Classe responsável pelo processamento da pré reserva da alocação do veículo, da qual vai trazer para dentro de si atributos das classes->PagamentoBoleto, PagamentoCartão, PagamentoPix, Cliente e Veiculo, contendo dentro da classe set de determinado tipo de pagamento e prazo da alocação que vão receber um valor no index e get nas classes cliente e veiculo na qual vai retornar valores das próprias classes. Com método processarPagamento(), vai retornar false, até o pagamento ser realizado durante a efetivação da pré-reserva, que ocorre no index. Por fim, tendo método exibirDetalhes(), na qual vai trazer na tela todas as informações da classe cliente, veiculo, prazo de pagamentoe, método de paghamento e se ocorreu tudo certo no cadastro, se realizou o pagamento, agora, se não ocorreu, não vai ser cadastrado a pré-reserva.
+  
+* **ContaBancariaCliente**: Classe responsável pela entrada e saída do saldo bancário do cliente, tendo dois atributos próprios, sendo $saldo e $numConta que vai receber os valores do index. Contendo o método debitar(), responsável pelo cálculo de entrada de valores e atualização do saldo atual. Debitando do saldo atual o valor da preReserva.
+  
   ## Funcionamento
   O programa inicia em um **menu**, que roda em um loop "*while*" com escolhas através de números inseridos pelo usuário, no qual ele pode escolher entre:
   * Cadastrar carro
