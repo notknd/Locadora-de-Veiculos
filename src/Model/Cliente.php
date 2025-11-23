@@ -41,6 +41,6 @@ class Cliente
 
     public function exibirDetalhes(): void
     {
-        echo "Cliente: {$this->nome} | CPF: {$this->cpf}\n";
+        echo "Cliente: {$this->getNome()} | CPF: {$this->getCpf()}\n";
     }
 }

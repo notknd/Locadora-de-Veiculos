@@ -4,8 +4,9 @@ namespace App\Model;
 
 use App\Model\Cliente;
 use App\Model\Veiculo;
+use App\Model\PagamentoBoleto;
+use App\Model\PagamentoCartao;
 use App\Model\PagamentoPix;
-use App\PagamentoCartao;
 
 class PreReserva{
     private ?PagamentoPix $pix = null;
