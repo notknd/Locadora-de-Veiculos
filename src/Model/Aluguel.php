@@ -7,6 +7,8 @@ class Aluguel
     private Cliente $cliente;
     private Veiculo $veiculo;
     private string $dataInicio;
+    private bool $paga = false;
+    private int $metodoPagamento;
 
     public function __construct(Cliente $cliente, Veiculo $veiculo, string $dataInicio)
     {
@@ -44,6 +46,19 @@ class Aluguel
     {
         $this->dataInicio = $dataInicio;
     }
+    public function setPagamentoPix(PagamentoPix $pix){ 
+        $this->pix = $pix;
+    }
+    public function setPagamentoCartao(PagamentoCartao $cartao){ 
+        $this->cartao = $cartao;
+    }
+    public function setPagamentoBoleto(PagamentoBoleto $boleto){ 
+        $this->boleto = $boleto;
+    }
+    public function isPaga(): bool {
+        return $this->paga;
+    }
+
 
     public function exibirDetalhes(): void
     {

@@ -142,7 +142,7 @@ while (true) {
 
 
             if ($metodoPagamento === 1) {
-                $pagamento = new PagamentoCartao($valorPreReserva, $clienteEscolhido->getConta());
+                $pagamento = new PagamentoCartao($valorPreReserva, contaCliente: $clienteEscolhido->getConta());
                 $sucessoPagamento = $pagamento->processar_pagamento();
 
             } elseif ($metodoPagamento === 2) {
@@ -155,44 +155,8 @@ while (true) {
 
             } else {
                 echo "Método de pagamento inválido.\n";
-            break;
+                break;
             }
-            
-            echo "Digite a data limite de pagamento (Prazo): ";
-            $dataLimite = readline();
-
-            $novaPreReserva = new PreReserva($clienteEscolhido, $veiculoEscolhido, $dataLimite, $metodoPagamento);
-
-            if ($sucessoPagamento) {
-                echo "\n-------------------------------------------------\n";
-                echo "Digite a data SIMULADA em que o pagamento foi efetuado: ";
-                $dataPagamentoSimulada = readline();
-                echo "-------------------------------------------------\n";
-                $novaPreReserva->marcarComoPaga($dataPagamentoSimulada);
-                if ($novaPreReserva->estaDentroDoPrazo()) {
-
-                    echo "\nPagamento efetuado dentro do prazo ({$dataPagamentoSimulada}).\n";
-
-                    echo "Digite o PRAZO de aluguel: ";
-                    $prazoAluguel = readline(); 
-                    $aluguelFinal = new Aluguel($clienteEscolhido, $veiculoEscolhido, $prazoAluguel);
-                    $alugueis[] = $aluguelFinal; 
-
-                    $aluguelFinal->exibirDetalhes();
-                } else {
-                    echo "\nPagamento efetuado ({$dataPagamentoSimulada}), mas FORA DO PRAZO. Pré-Reserva CANCELADA.\n";
-                    $novaPreReserva->cancelaPreReserva(); 
-                }
-            } else {
-                echo "\nFalha no pagamento. Pré-reserva não efetivada.\n";
-            }
-
-            $listaPreReserva[] = $novaPreReserva;
-            $novaPreReserva->exibirDetalhes();
-
-
-
-            break;
 
         case 7:
             echo "___ Lista de Aluguéis ___\n";
